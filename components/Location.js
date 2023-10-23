@@ -3,16 +3,23 @@ import sunny from "../assets/Sunny.svg"
 import cloudy from "../assets/Cloudy.svg";
 import partlyCloudy from '../assets/PartlyCloudy.svg';
 import rainy from "../assets/Rainy.svg";
+import WeatherCard from './WeatherCard'
 
 function Location({cities, location, setLocation}) {
-
-    const myCity = cities.find((city) => city.city = location)
-    return(
+    const imgObj = {
+        'Sunny': sunny,
+        'Rainy': rainy, 
+        'Partly cloudy': partlyCloudy, 
+        "Cloudy": cloudy 
+    }
+    const myCity = cities.find(({city}) => city == location)
+    return(  
         <>
-            <div className = "card">
+          {myCity ?  
+            (<div className = "card">
                 <h3 className="card-title" style={{margin: "auto"}}>Your location's weather</h3>
                 <div className = "img-container">
-                    <img className="card-img-top" src = { myCity.forecast == 'Sunny' ? sunny : myCity.forecast == 'Rainy' ? rainy : myCity.forecast == 'Partly cloudy' ? partlyCloudy : cloudy} alt="Card image cap" id = "icon"/>
+                    <img className="card-img-top" src = {imgObj[myCity.forecast]} alt="Card image cap" id = "icon"/>
                 </div>
                 <div class="card-body">
                     
@@ -20,8 +27,17 @@ function Location({cities, location, setLocation}) {
                     <h5 className="card-text">{myCity.temperature}°C</h5>
                     <h5 className="card-text">The forecast is {myCity.forecast}</h5>
                 </div>
-            </div>
-        </>
+            </div>): (
+                <>
+            <h1>City Not Found</h1>
+            {cities.map((city, idx) => (
+                <>   
+                    <WeatherCard key={idx} city={city}/>
+                </> 
+            ))}
+            </>
+        )}
+        </>   
     )
 }
 

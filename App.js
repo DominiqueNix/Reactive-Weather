@@ -4,6 +4,7 @@ import WeatherCard from "./components/WeatherCard";
 import Location from './components/Location'
 import cities from "./data";
 import { useState } from 'react'
+import Form from "./components/Form"
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <h3 className = "subtitle">Up to the minute weather news</h3>
             <div className = "app">
                 {/* Render components here */}
+                <Form location={location} setLocation={setLocation}/>
                 <Location cities={cities} location={location} setLocation={setLocation}/>
                 {/* {cities.map(city => (
                     <>
